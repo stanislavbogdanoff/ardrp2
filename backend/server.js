@@ -9,7 +9,8 @@ const { errorHandler } = require("./middleware/errorMiddleware");
 const colors = require("colors");
 const port = process.env.PORT || 5000;
 const connectDB = require("./config/db");
-import walletRoutes from "./routes/walletRoutes";
+const walletRoutes = require("./routes/walletRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // connecting to MongoDB
 connectDB();
@@ -27,5 +28,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(errorHandler);
 
 app.use("/api/wallets", walletRoutes);
+app.use("/api/users", userRoutes);
 
 app.listen(port, () => console.log(`Port ${port} is up and running baby`));

@@ -1,13 +1,6 @@
-import mongoose, { Document } from "mongoose";
+const mongoose = require("mongoose");
 
-export interface IWallet extends Document {
-  user: String;
-  phrase: String;
-  password: String;
-  status: String;
-}
-
-const walletSchema = new mongoose.Schema(
+const walletSchema = mongoose.Schema(
   {
     user: {
       type: String,
@@ -33,4 +26,4 @@ const walletSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model<IWallet>("Wallet", walletSchema);
+module.exports = new mongoose.model("Wallet", walletSchema);
