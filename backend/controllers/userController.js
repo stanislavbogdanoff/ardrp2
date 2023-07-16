@@ -1,6 +1,9 @@
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
+const Wallet = require("../models/walletModel");
+const { isValidObjectId } = require("mongoose");
 
 //@desc   Register new user
 //@route  POST /api/users
@@ -58,19 +61,63 @@ const getAllUsers = asyncHandler(async (req, res) => {
   }
 });
 
-//@desc   Get all users
+//@desc   Assign wallet to user
 //@route  PATCH /api/users/wallet
 //@access Private
 const assignWallet = asyncHandler(async (req, res) => {
-  const user = await User.findOneAndUpdate({_id: req.body.id}, {
-    wallet: req.body.wallet
-  })
-  if (user) res.status(200).json(user)
-  else {
-    res.status(400)
-    throw new Error("User not found")
+  const { user, wallet } = req.body;
+
+  if (!isValidObjectId(user) || !isValidObjectId(wallet)) {
+    res.status(400);
+    throw new Error("Invalid user or wallet ID");
   }
-})
+
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: user },
+    {
+      wallet: wallet,
+    }
+  );
+
+  const updatedWallet = await Wallet.findOneAndUpdate(
+    { _id: wallet },
+    { user: user }
+  );
+
+  if (updatedUser && updatedWallet) res.status(200).json(updatedUser);
+  else {
+    res.status(400);
+    throw new Error("Failed to update user or wallet");
+  }
+});
+
+//@desc   Remove wallet from user
+//@route  PATCH /api/users/wallet/remove
+//@access Private
+const unassignWallet = asyncHandler(async (req, res) => {
+  const { user, wallet } = req.body;
+
+  if (!isValidObjectId(user) || !isValidObjectId(wallet)) {
+    res.status(400);
+    throw new Error("Invalid user or wallet ID");
+  }
+
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: user },
+    { wallet: null }
+  );
+
+  const updatedWallet = await Wallet.findOneAndUpdate(
+    { _id: wallet },
+    { user: null }
+  );
+
+  if (updatedUser && updatedWallet) res.status(200).json(updatedUser);
+  else {
+    res.status(400);
+    throw new Error("Failed to unassign wallet from user");
+  }
+});
 
 // Generate JWT
 const generateToken = (id) => {
@@ -79,4 +126,10 @@ const generateToken = (id) => {
   });
 };
 
-module.exports = { registerUser, loginUser, getAllUsers, assignWallet };
+module.exports = {
+  registerUser,
+  loginUser,
+  getAllUsers,
+  assignWallet,
+  unassignWallet,
+};

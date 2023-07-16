@@ -15,9 +15,9 @@ const userSchema = mongoose.Schema(
       required: true,
     },
     wallet: {
-      type: mongoose.Schema.Types.ObjectId(),
-      ref: "Wallet"
-    }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Wallet",
+    },
   },
   {
     timestamps: true,

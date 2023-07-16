@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const walletSchema = mongoose.Schema(
   {
     user: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
     phrase: {
       type: String,
@@ -16,7 +16,6 @@ const walletSchema = mongoose.Schema(
     },
     status: {
       type: String,
-      required: true,
       default: "Available",
     },
   },
