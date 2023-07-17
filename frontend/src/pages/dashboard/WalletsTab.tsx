@@ -8,6 +8,7 @@ import {
 } from "../../features/wallets/walletService";
 import { useUser } from "../../hooks/useUser";
 import WalletCard from "../../components/dashboard/WalletCard";
+import { useAllUsers } from "../../hooks/useAllUsers";
 
 const WalletsTab = () => {
   // Initial state
@@ -32,6 +33,9 @@ const WalletsTab = () => {
     await addWallet(walletData).then(() => refetchWallets());
   }
 
+  // Get all users
+  const allUsers = useAllUsers();
+
   return (
     <>
       <Section>
@@ -51,16 +55,18 @@ const WalletsTab = () => {
           </>
         ) : null}
       </Section>
-      {walletsIsFetching ? (
-        <>Wallets are loading</>
-      ) : (
-        <>
-          {Array.isArray(wallets) &&
-            wallets.map((wal: Wallet) => (
-              <WalletCard key={String(wal._id)} wallet={wal} />
-            ))}
-        </>
-      )}
+      <Section ver>
+        {walletsIsFetching ? (
+          <>Wallets are loading</>
+        ) : (
+          <>
+            {Array.isArray(wallets) &&
+              wallets.map((wal: Wallet) => (
+                <WalletCard key={String(wal._id)} wallet={wal} />
+              ))}
+          </>
+        )}
+      </Section>
     </>
   );
 };

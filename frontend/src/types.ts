@@ -10,7 +10,8 @@ export interface User {
   password?: string;
   role?: string;
   token?: string;
-  wallets: Wallet[];
+  wallets?: Wallet[];
+  wallet_password?: string
 }
 
 export interface Wallet {

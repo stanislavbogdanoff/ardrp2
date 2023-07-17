@@ -5,23 +5,7 @@ import {
   useRemoveWalletMutation,
 } from "../../features/wallets/walletService";
 import { useUser } from "../../hooks/useUser";
-
-interface User {
-  role?: string;
-  _id?: ObjectId;
-  password?: string;
-  username?: string;
-  token?: string;
-  wallets: Wallet[];
-}
-
-interface Wallet {
-  _id?: ObjectId;
-  user?: User | string;
-  phrase?: string;
-  password?: string;
-  status?: string;
-}
+import { Wallet } from "../../types";
 
 interface WalletProps {
   wallet: Wallet;
