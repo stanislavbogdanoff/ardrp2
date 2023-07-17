@@ -5,6 +5,8 @@ import { TextInputEventType } from "../types";
 import { useDispatch } from "react-redux";
 import { setUser } from "../features/auth/authSlice";
 import useAuthRedirection from "../hooks/useAuthRedirection";
+import Section from "../components/layout/Section";
+import PageTitle from "../components/layout/PageTitle";
 
 // State type interface
 interface User {
@@ -43,10 +45,12 @@ const LoginPage = () => {
 
   return (
     <>
-      <div>LoginPage</div>
-      <TextInput onChange={(e) => hanldeUsernameInput(e)} />
-      <TextInput onChange={(e) => handlePasswordInput(e)} />
-      <button onClick={() => void handleLogin()}>Login</button>
+      <Section ver>
+        <PageTitle>LoginPage</PageTitle>
+        <TextInput onChange={(e) => hanldeUsernameInput(e)} />
+        <TextInput onChange={(e) => handlePasswordInput(e)} />
+        <button onClick={() => void handleLogin()}>Login</button>
+      </Section>
     </>
   );
 };

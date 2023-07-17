@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Types } from "mongoose";
 
 interface Wallet {
   user?: string;
@@ -12,14 +11,37 @@ export const walletApi = createApi({
   reducerPath: "walletApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
   endpoints: (builder) => ({
-    addWallet: builder.mutation<Promise<Wallet>, Wallet>({
+    getAllWallets: builder.query<Promise<Wallet[]>, void>({
+      query: () => "/wallets",
+    }),
+    addWallet: builder.mutation<
+      Promise<Wallet>,
+      { phrase: string; password: string }
+    >({
       query: (body) => ({
         url: "/wallets",
         method: "POST",
         body,
       }),
     }),
+    removeWallet: builder.mutation({
+      query: ({ walletId, token }: { walletId: string; token: string }) => ({
+        url: `/wallets/${walletId}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useAddWalletMutation } = walletApi;
+export const {
+  //get all wallets
+  useGetAllWalletsQuery,
+  useLazyGetAllWalletsQuery,
+  // add wallet
+  useAddWalletMutation,
+  //remove wallet
+  useRemoveWalletMutation,
+} = walletApi;

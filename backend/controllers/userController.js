@@ -75,7 +75,9 @@ const assignWallet = asyncHandler(async (req, res) => {
   const updatedUser = await User.findOneAndUpdate(
     { _id: user },
     {
-      wallet: wallet,
+      $push: {
+        wallets: wallet,
+      },
     }
   );
 

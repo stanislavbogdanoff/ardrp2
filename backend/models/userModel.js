@@ -14,10 +14,12 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    wallet: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Wallet",
-    },
+    wallets: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Wallet",
+      },
+    ],
   },
   {
     timestamps: true,

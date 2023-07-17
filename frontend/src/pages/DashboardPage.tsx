@@ -1,49 +1,29 @@
 import { useState } from "react";
 import TextInput from "../components/inputs/TextInput";
-import { useAddWalletMutation } from "../features/wallets/walletService";
+import {
+  useAddWalletMutation,
+  useGetAllWalletsQuery,
+} from "../features/wallets/walletService";
 import useUnAuthRedirection from "../hooks/useUnAuthRedirection";
-
-// State type
-interface Wallet {
-  user?: string;
-  phrase?: string;
-  password?: string;
-  status?: string;
-}
+import Section from "../components/layout/Section";
+import PageTitle from "../components/layout/PageTitle";
+import { useUser } from "../hooks/useUser";
+import WalletCard from "../components/dashboard/WalletCard";
+import { User, Wallet } from "../types";
+import DashTabs from "../components/dashboard/DashTabs";
+import { Outlet } from "react-router-dom";
 
 const DashboardPage = () => {
-  // Initial state
-  const [walletData, setWalletData] = useState<Wallet>({
-    user: "64b267cc68f6df681f7b3ea0",
-    phrase: "",
-    password: "",
-  });
-
-  // Add wallet
-  const [addWallet] = useAddWalletMutation();
-
-  async function handleAddWallet() {
-    await addWallet(walletData);
-    console.log(walletData);
-  }
-
   // Redirect if not logged in
   useUnAuthRedirection();
 
   return (
     <>
-      <div>DashboardPage</div>
-      <TextInput
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setWalletData({ ...walletData, phrase: e.target.value })
-        }
-      />
-      <TextInput
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setWalletData({ ...walletData, password: e.target.value })
-        }
-      />
-      <button onClick={() => void handleAddWallet()}>Add Wallet</button>
+      <Section ver>
+        <PageTitle>Dashboard</PageTitle>
+        <DashTabs />
+      </Section>
+      <Outlet />
     </>
   );
 };

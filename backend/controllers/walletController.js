@@ -4,7 +4,7 @@ const User = require("../models/userModel");
 const { isValidObjectId } = require("mongoose");
 
 const getAllWallets = asyncHandler(async (req, res) => {
-  const wallets = await Wallet.find();
+  const wallets = await Wallet.find().populate("user");
   if (wallets && wallets.length > 0) res.status(200).json(wallets);
   else {
     res.status(400);
