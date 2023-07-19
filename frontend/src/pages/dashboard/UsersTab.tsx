@@ -1,4 +1,3 @@
-import React from "react";
 import { useGetAllUsersQuery } from "../../features/auth/authService";
 import { useUser } from "../../hooks/useUser";
 import Section from "../../components/layout/Section";
@@ -18,8 +17,14 @@ const UsersTab = () => {
   return (
     <>
       <Section ver>
-        {Array.isArray(allUsers) &&
-          allUsers.map((user) => <UserCard user={user} />)}
+        {usersIsFetching ? (
+          <>Users are fetching</>
+        ) : (
+          <>
+            {Array.isArray(allUsers) &&
+              allUsers.map((user) => <UserCard user={user} />)}
+          </>
+        )}
       </Section>
     </>
   );
