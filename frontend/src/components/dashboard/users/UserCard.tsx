@@ -10,7 +10,9 @@ const UserCard = ({ user }: { user: User }) => {
       <span>{user.username}</span>
       <div className={styles.wallets_list}>
         {Array.isArray(user.wallets) &&
-          user.wallets.map((wallet) => <UserWallet wallet={wallet} />)}
+          user.wallets.map((wallet) => (
+            <UserWallet key={String(wallet._id)} wallet={wallet} />
+          ))}
       </div>
       <WalletSelect user={user} />
     </div>

@@ -13,6 +13,14 @@ export const walletApi = createApi({
         },
       }),
     }),
+    getAvailableWallets: builder.query<Promise<Wallet[]>, string>({
+      query: (token: string) => ({
+        url: "/wallets/available",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
     addWallet: builder.mutation<
       Promise<Wallet>,
       { phrase: string; password: string }
@@ -36,9 +44,11 @@ export const walletApi = createApi({
 });
 
 export const {
-  //get all wallets
+  // get all wallets
   useGetAllWalletsQuery,
   useLazyGetAllWalletsQuery,
+  // get available wallets
+  useGetAvailableWalletsQuery,
   // add wallet
   useAddWalletMutation,
   //remove wallet

@@ -1,8 +1,5 @@
 import styles from "./Wallets.module.scss";
-import {
-  useGetAllWalletsQuery,
-  useRemoveWalletMutation,
-} from "../../../features/wallets/walletService";
+import { useRemoveWalletMutation } from "../../../features/wallets/walletService";
 import { useUser } from "../../../hooks/useUser";
 import { Wallet } from "../../../types";
 import { useAllUsers } from "../../../hooks/useAllUsers";

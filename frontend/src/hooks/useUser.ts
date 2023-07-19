@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
-import { ObjectId } from "mongoose";
 import { User } from "../types";
 
 interface Data {

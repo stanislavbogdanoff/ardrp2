@@ -12,6 +12,15 @@ const getAllWallets = asyncHandler(async (req, res) => {
   }
 });
 
+const getAvailableWallets = asyncHandler(async (req, res) => {
+  const wallets = await Wallet.find({ status: "Available" }).populate("user");
+  if (wallets && wallets.length > 0) res.status(200).json(wallets);
+  else {
+    res.status(400);
+    throw new Error("No wallets");
+  }
+});
+
 const getRandomWallet = asyncHandler(async (req, res) => {
   const randomWallet = await Wallet.findOneAndUpdate(
     {
@@ -55,4 +64,10 @@ const removeWallet = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { getAllWallets, getRandomWallet, addNewWallet, removeWallet };
+module.exports = {
+  getAllWallets,
+  getRandomWallet,
+  addNewWallet,
+  removeWallet,
+  getAvailableWallets,
+};

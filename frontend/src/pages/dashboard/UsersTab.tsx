@@ -1,18 +1,28 @@
-import React from "react";
-import { useGetAllUsersQuery } from "../../features/auth/authService";
-import { useUser } from "../../hooks/useUser";
+import { useAllUsers } from "../../hooks/useAllUsers";
+import Section from "../../components/layout/Section";
+import UserCard from "../../components/dashboard/users/UserCard";
 
 const UsersTab = () => {
-  // Get user
-  const user = useUser();
-
   // Get all users
-  const { data: allUsers, isFetching: usersIsFetching } = useGetAllUsersQuery(
-    String(user?.token)
-  );
+  const { allUsers, usersIsFetching } = useAllUsers();
 
   console.log(allUsers, "all users");
-  return <div>UsersTab</div>;
+  return (
+    <>
+      <Section ver>
+        {usersIsFetching ? (
+          <>Users are loading</>
+        ) : (
+          <>
+            {Array.isArray(allUsers) &&
+              allUsers.map((user) => (
+                <UserCard key={String(user._id)} user={user} />
+              ))}
+          </>
+        )}
+      </Section>
+    </>
+  );
 };
 
 export default UsersTab;
