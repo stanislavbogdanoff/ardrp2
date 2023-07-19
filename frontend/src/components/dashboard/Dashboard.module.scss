@@ -1,9 +1,12 @@
-.wallet_card {
-  width: 100%;
+.dash_tabs {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 15px;
 }
-
-.dash_tabs {
+.wallet_card_list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

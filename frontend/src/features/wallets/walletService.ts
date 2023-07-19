@@ -1,18 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-interface Wallet {
-  user?: string;
-  phrase?: string;
-  password?: string;
-  status?: string;
-}
+import { Wallet } from "../../types";
 
 export const walletApi = createApi({
   reducerPath: "walletApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
   endpoints: (builder) => ({
-    getAllWallets: builder.query<Promise<Wallet[]>, void>({
-      query: () => "/wallets",
+    getAllWallets: builder.query<Promise<Wallet[]>, string>({
+      query: (token: string) => ({
+        url: "/wallets",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
     }),
     addWallet: builder.mutation<
       Promise<Wallet>,

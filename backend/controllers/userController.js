@@ -52,7 +52,10 @@ const loginUser = asyncHandler(async (req, res) => {
 //@route  GET /api/users
 //@access Private
 const getAllUsers = asyncHandler(async (req, res) => {
-  const users = await User.find();
+  const users = await User.find().populate({
+    path: "wallets",
+    model: "Wallet",
+  });
   if (users && users.length > 0) {
     res.status(200).json(users);
   } else {
@@ -83,7 +86,7 @@ const assignWallet = asyncHandler(async (req, res) => {
 
   const updatedWallet = await Wallet.findOneAndUpdate(
     { _id: wallet },
-    { user: user }
+    { user: user, status: "Taken" }
   );
 
   if (updatedUser && updatedWallet) res.status(200).json(updatedUser);
@@ -106,12 +109,16 @@ const unassignWallet = asyncHandler(async (req, res) => {
 
   const updatedUser = await User.findOneAndUpdate(
     { _id: user },
-    { wallet: null }
+    {
+      $pull: {
+        wallets: wallet,
+      },
+    }
   );
 
   const updatedWallet = await Wallet.findOneAndUpdate(
     { _id: wallet },
-    { user: null }
+    { user: null, status: "Available" }
   );
 
   if (updatedUser && updatedWallet) res.status(200).json(updatedUser);
