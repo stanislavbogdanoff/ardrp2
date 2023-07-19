@@ -48,7 +48,7 @@ const LoginPage = () => {
       <Section ver>
         <PageTitle>LoginPage</PageTitle>
         <TextInput onChange={(e) => hanldeUsernameInput(e)} />
-        <TextInput onChange={(e) => handlePasswordInput(e)} />
+        <input type="password" onChange={(e) => handlePasswordInput(e)} />
         <button onClick={() => void handleLogin()}>Login</button>
       </Section>
     </>

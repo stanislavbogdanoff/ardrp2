@@ -1,8 +1,6 @@
 import React from "react";
 import { useGetAllUsersQuery } from "../../features/auth/authService";
 import { useUser } from "../../hooks/useUser";
-import Section from "../../components/layout/Section";
-import UserCard from "../../components/dashboard/users/UserCard";
 
 const UsersTab = () => {
   // Get user
@@ -14,12 +12,7 @@ const UsersTab = () => {
   );
 
   console.log(allUsers, "all users");
-  return (
-    <Section ver>
-      {Array.isArray(allUsers) &&
-        allUsers.map((user) => <UserCard user={user} />)}
-    </Section>
-  );
+  return <div>UsersTab</div>;
 };
 
 export default UsersTab;

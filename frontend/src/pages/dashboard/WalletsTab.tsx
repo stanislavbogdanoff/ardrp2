@@ -30,6 +30,9 @@ const WalletsTab = () => {
     await addWallet(walletData).then(() => refetchWallets());
   }
 
+  // Get all users
+  const allUsers = useAllUsers();
+
   return (
     <>
       <Section>
@@ -49,20 +52,16 @@ const WalletsTab = () => {
           </>
         ) : null}
       </Section>
-      <Section ver>
-        <div className={styles.wallet_card_list}>
-          {walletsIsFetching ? (
-            <>Wallets are loading</>
-          ) : (
-            <>
-              {Array.isArray(allWallets) &&
-                allWallets.map((wal: Wallet) => (
-                  <WalletCard key={String(wal._id)} wallet={wal} />
-                ))}
-            </>
-          )}
-        </div>
-      </Section>
+      {walletsIsFetching ? (
+        <>Wallets are loading</>
+      ) : (
+        <>
+          {Array.isArray(wallets) &&
+            wallets.map((wal: Wallet) => (
+              <WalletCard key={String(wal._id)} wallet={wal} />
+            ))}
+        </>
+      )}
     </>
   );
 };

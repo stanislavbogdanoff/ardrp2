@@ -13,6 +13,7 @@ export interface User {
   role?: string;
   token?: string;
   wallets?: Wallet[];
+  wallet_password?: string;
 }
 
 export interface Wallet {
