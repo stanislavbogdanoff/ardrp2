@@ -10,24 +10,18 @@ import { useUser } from "../../../hooks/useUser";
 import { useAllUsers } from "../../../hooks/useAllUsers";
 import { useAvailableWallets } from "../../../hooks/useAvailableWallets";
 
-// TODO: NO NEED TO FILTER WALLETS, THEY ALREADY HAVE "AVAILABLE" IF THEY ARE NOT TAKEN
-
 const WalletSelect = ({ user }: { user: User }) => {
   // Get current user
   const currUser = useUser();
 
-  // Define taken wallets before passing to query
-  const takenWallets: Wallet[] = currUser?.wallets ?? [];
   // Get available wallets
-  const { availableWallets, refetchAvailableWallets } = useAvailableWallets({
-    takenWallets: takenWallets,
-  });
+  const { availableWallets, refetchAvailableWallets } = useAvailableWallets();
 
   // Chosen wallet state and initial assign
   const [chosenWallet, setChosenWallet] = useState<string>("");
   useEffect(() => {
-    if (!chosenWallet && availableWallets.length > 0) {
-      setChosenWallet(String(availableWallets[0]._id));
+    if (!chosenWallet && availableWallets?.length > 0) {
+      setChosenWallet(String(availableWallets[0]?._id));
     }
   }, [chosenWallet, availableWallets]);
 
@@ -37,13 +31,17 @@ const WalletSelect = ({ user }: { user: User }) => {
   // Assign wallet function
   const [assignWallet] = useAssignWalletMutation();
   const handleAssignWallet = async () => {
-    await assignWallet({
-      user: String(user?._id),
-      wallet: String(chosenWallet),
-      token: String(currUser?.token),
-    })
-      .then(() => refetchUsers())
-      .then(() => refetchAvailableWallets());
+    try {
+      await assignWallet({
+        user: String(user?._id),
+        wallet: String(chosenWallet),
+        token: String(currUser?.token),
+      }).then(() => refetchAvailableWallets());
+      // Wait for the wallet assignment to complete before refetching
+      await refetchUsers();
+    } catch (error) {
+      console.error("Error assigning wallet:", error);
+    }
   };
 
   return (
@@ -55,6 +53,9 @@ const WalletSelect = ({ user }: { user: User }) => {
           }
           value={chosenWallet}
         >
+          {availableWallets.length < 1 ? (
+            <option value="">No available wallets</option>
+          ) : null}
           {availableWallets.map((wallet) => (
             <option key={String(wallet?._id)} value={String(wallet?._id)}>
               {wallet.address}

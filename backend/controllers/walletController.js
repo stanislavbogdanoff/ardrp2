@@ -16,8 +16,7 @@ const getAvailableWallets = asyncHandler(async (req, res) => {
   const wallets = await Wallet.find({ status: "Available" }).populate("user");
   if (wallets && wallets.length > 0) res.status(200).json(wallets);
   else {
-    res.status(400);
-    throw new Error("No wallets");
+    res.status(200).json([]);
   }
 });
 

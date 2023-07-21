@@ -3,6 +3,7 @@ import { Wallet } from "../../../types";
 import { useUnassignWalletMutation } from "../../../features/auth/authService";
 import { useUser } from "../../../hooks/useUser";
 import { useAllUsers } from "../../../hooks/useAllUsers";
+import { useAvailableWallets } from "../../../hooks/useAvailableWallets";
 
 const UserWallet = ({ wallet }: { wallet: Wallet }) => {
   // Get user
@@ -11,14 +12,22 @@ const UserWallet = ({ wallet }: { wallet: Wallet }) => {
   // Refetch users function
   const { refetchUsers } = useAllUsers();
 
+  // Get available wallets
+  const { refetchAvailableWallets } = useAvailableWallets();
+
   // Unassign wallet function
   const [unassignWallet] = useUnassignWalletMutation();
   const handleUnassignWallet = async () => {
-    await unassignWallet({
-      user: String(wallet?.user),
-      wallet: String(wallet?._id),
-      token: String(user?.token),
-    }).then(() => refetchUsers());
+    try {
+      await unassignWallet({
+        user: String(wallet?.user),
+        wallet: String(wallet?._id),
+        token: String(user?.token),
+      }).then(() => refetchAvailableWallets());
+      await refetchUsers();
+    } catch (error) {
+      console.error("Error assigning wallet:", error);
+    }
   };
 
   return (

@@ -1,12 +1,9 @@
+import { useEffect, useState } from "react";
 import { useGetAvailableWalletsQuery } from "../features/wallets/walletService";
 import { Wallet } from "../types";
 import { useUser } from "./useUser";
 
-export const useAvailableWallets = ({
-  takenWallets,
-}: {
-  takenWallets: Wallet[];
-}) => {
+export const useAvailableWallets = () => {
   // Get user
   const user = useUser();
 
@@ -16,18 +13,19 @@ export const useAvailableWallets = ({
       skip: !user?.token, // Skip if the user's not defined
     });
 
-  // Declare wallets filtered
-  let filteredWallets: Wallet[] = [];
+  const [resolvedAvailableWallets, setResolvedAvailableWallets] = useState<
+    Wallet[]
+  >([]);
 
-  if (
-    availableWallets &&
-    Array.isArray(availableWallets) &&
-    availableWallets.length > 0
-  ) {
-    filteredWallets = availableWallets.filter(
-      (wallet) => !takenWallets.some((el) => el._id === wallet._id)
-    );
-  }
+  useEffect(() => {
+    // When the availableWallets data is available (resolved), set it to the state
+    if (availableWallets && Array.isArray(availableWallets)) {
+      setResolvedAvailableWallets(availableWallets);
+    }
+  }, [availableWallets]);
 
-  return { availableWallets: filteredWallets, refetchAvailableWallets };
+  return {
+    availableWallets: resolvedAvailableWallets,
+    refetchAvailableWallets,
+  };
 };
