@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
-import {
-  useAssignWalletMutation,
-  useUnassignWalletMutation,
-} from "../../../features/auth/authService";
-import { useAllWallets } from "../../../hooks/useAllWallets";
+import { useAssignWalletMutation } from "../../../features/auth/authService";
 import { SelectInputEventType, User, Wallet } from "../../../types";
 import styles from "./Users.module.scss";
 import { useUser } from "../../../hooks/useUser";
 import { useAllUsers } from "../../../hooks/useAllUsers";
 import { useAvailableWallets } from "../../../hooks/useAvailableWallets";
 
-const WalletSelect = ({ user }: { user: User }) => {
+const WalletSelect = ({
+  user,
+  hasAvailableWallets,
+}: {
+  user: User;
+  hasAvailableWallets: boolean;
+}) => {
   // Get current user
   const currUser = useUser();
 
@@ -37,7 +39,6 @@ const WalletSelect = ({ user }: { user: User }) => {
         wallet: String(chosenWallet),
         token: String(currUser?.token),
       }).then(() => refetchAvailableWallets());
-      // Wait for the wallet assignment to complete before refetching
       await refetchUsers();
     } catch (error) {
       console.error("Error assigning wallet:", error);
@@ -63,7 +64,12 @@ const WalletSelect = ({ user }: { user: User }) => {
           ))}
         </select>
       )}
-      <button onClick={() => void handleAssignWallet()}>Assign!</button>
+      <button
+        disabled={availableWallets.length > 0 ? false : true}
+        onClick={() => void handleAssignWallet()}
+      >
+        Assign!
+      </button>
     </div>
   );
 };

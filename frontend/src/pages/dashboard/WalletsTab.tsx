@@ -13,6 +13,7 @@ const WalletsTab = () => {
   const [walletData, setWalletData] = useState({
     phrase: "",
     password: "",
+    address: "",
   });
 
   // Get user
@@ -42,20 +43,27 @@ const WalletsTab = () => {
                 setWalletData({ ...walletData, password: e.target.value })
               }
             />
+            <TextInput
+              onChange={(e: TextInputEventType) =>
+                setWalletData({ ...walletData, address: e.target.value })
+              }
+            />
             <button onClick={() => void handleAddWallet()}>Add Wallet</button>
           </>
         ) : null}
       </Section>
-      {walletsIsFetching ? (
-        <>Wallets are loading</>
-      ) : (
-        <>
-          {Array.isArray(allWallets) &&
-            allWallets.map((wal: Wallet) => (
-              <WalletCard key={String(wal._id)} wallet={wal} />
-            ))}
-        </>
-      )}
+      <Section ver>
+        {walletsIsFetching ? (
+          <>Wallets are loading</>
+        ) : (
+          <>
+            {Array.isArray(allWallets) &&
+              allWallets.map((wal: Wallet) => (
+                <WalletCard key={String(wal._id)} wallet={wal} />
+              ))}
+          </>
+        )}
+      </Section>
     </>
   );
 };

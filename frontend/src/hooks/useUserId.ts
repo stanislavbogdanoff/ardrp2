@@ -1,15 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
-import { ObjectId } from "mongoose";
-
-interface User {
-  role?: string;
-  _id?: ObjectId;
-  password?: string;
-  username?: string;
-  token?: string;
-}
+import { User } from "../types";
 
 interface Data {
   data: User;

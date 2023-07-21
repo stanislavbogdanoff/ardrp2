@@ -2,9 +2,12 @@ import styles from "./Users.module.scss";
 import { User } from "../../../types";
 import WalletSelect from "./WalletSelect";
 import UserWallet from "./UserWallet";
+import { useAvailableWallets } from "../../../hooks/useAvailableWallets";
 
 const UserCard = ({ user }: { user: User }) => {
-  console.log(user, "user");
+  // Get available wallets
+  const { availableWallets } = useAvailableWallets();
+
   return (
     <div className={styles.user_card}>
       <span>{user.username}</span>
@@ -14,7 +17,7 @@ const UserCard = ({ user }: { user: User }) => {
             <UserWallet key={String(wallet._id)} wallet={wallet} />
           ))}
       </div>
-      <WalletSelect user={user} />
+      <WalletSelect hasAvailableWallets user={user} />
     </div>
   );
 };
