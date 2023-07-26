@@ -33,8 +33,51 @@ export const authApi = createApi({
         },
       }),
     }),
+    assignWallet: builder.mutation({
+      query: ({
+        user,
+        wallet,
+        token,
+      }: {
+        user: string;
+        wallet: string;
+        token: string;
+      }) => ({
+        url: "/wallet",
+        method: "PATCH",
+        body: { user: user, wallet: wallet },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
+    unassignWallet: builder.mutation({
+      query: ({
+        user,
+        wallet,
+        token,
+      }: {
+        user: string;
+        wallet: string;
+        token: string;
+      }) => ({
+        url: "/wallet/remove",
+        method: "PATCH",
+        body: { user: user, wallet: wallet },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useGetAllUsersQuery } =
-  authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  // get all users
+  useGetAllUsersQuery,
+  // wallet assign-unassign
+  useAssignWalletMutation,
+  useUnassignWalletMutation,
+} = authApi;

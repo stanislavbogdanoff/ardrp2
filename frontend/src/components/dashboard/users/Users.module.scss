@@ -1,0 +1,10 @@
+.user_card {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.wallets_list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

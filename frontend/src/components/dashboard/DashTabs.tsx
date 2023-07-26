@@ -7,6 +7,7 @@ interface Tab {
 }
 
 const DashTabs = () => {
+  // List dashboard tabs
   const tabs: Tab[] = [
     {
       label: "Users",
@@ -25,10 +26,13 @@ const DashTabs = () => {
       link: "/emails",
     },
   ];
+
   return (
     <div className={styles.dash_tabs}>
       {Array.isArray(tabs) &&
-        tabs.map((tab) => <Tab label={tab.label} link={tab.link} />)}
+        tabs.map((tab) => (
+          <Tab key={tab.label} label={tab.label} link={tab.link} />
+        ))}
     </div>
   );
 };

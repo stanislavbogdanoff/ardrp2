@@ -8,7 +8,7 @@ import useUnAuthRedirection from "../hooks/useUnAuthRedirection";
 import Section from "../components/layout/Section";
 import PageTitle from "../components/layout/PageTitle";
 import { useUser } from "../hooks/useUser";
-import WalletCard from "../components/dashboard/WalletCard";
+import WalletCard from "../components/dashboard/wallets/WalletCard";
 import { User, Wallet } from "../types";
 import DashTabs from "../components/dashboard/DashTabs";
 import { Outlet } from "react-router-dom";

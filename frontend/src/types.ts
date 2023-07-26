@@ -2,6 +2,8 @@ import { ObjectId } from "mongoose";
 
 export type TextInputEventType = React.ChangeEvent<HTMLInputElement>;
 
+export type SelectInputEventType = React.ChangeEvent<HTMLSelectElement>;
+
 export type OnChangeFunctionType = React.ChangeEventHandler<HTMLInputElement>;
 
 export interface User {
@@ -11,7 +13,7 @@ export interface User {
   role?: string;
   token?: string;
   wallets?: Wallet[];
-  wallet_password?: string
+  wallet_password?: string;
 }
 
 export interface Wallet {
@@ -20,4 +22,5 @@ export interface Wallet {
   phrase?: string;
   password?: string;
   status?: string;
+  address?: string;
 }

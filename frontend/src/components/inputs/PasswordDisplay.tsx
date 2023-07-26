@@ -15,7 +15,7 @@ const PasswordDisplay = ({ text }: { text: string }) => {
       ) : (
         <span>{text.split("").map(() => "*")}</span>
       )}
-      <button onClick={() => navigator.clipboard.writeText(String(text))}>
+      <button onClick={() => void navigator.clipboard.writeText(String(text))}>
         Copy!
       </button>
     </div>
