@@ -6,13 +6,7 @@ import { useUser } from "../../../hooks/useUser";
 import { useAllUsers } from "../../../hooks/useAllUsers";
 import { useAvailableWallets } from "../../../hooks/useAvailableWallets";
 
-const WalletSelect = ({
-  user,
-  hasAvailableWallets,
-}: {
-  user: User;
-  hasAvailableWallets: boolean;
-}) => {
+const WalletSelect = ({ user }: { user: User }) => {
   // Get current user
   const currUser = useUser();
 
