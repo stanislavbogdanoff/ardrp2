@@ -51,7 +51,7 @@ const WalletsTab = () => {
                 setWalletData({ ...walletData, address: e.target.value })
               }
             />
-            <button onClick={handleAddWallet}>Add Wallet</button>
+            <button onClick={() => void handleAddWallet}>Add Wallet</button>
           </>
         ) : null}
       </Section>
