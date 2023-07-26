@@ -34,24 +34,24 @@ const WalletsTab = () => {
         {user && user.role === "admin" ? (
           <>
             <TextInput
-              placeholder="seed phrase"
+              placeholder="Phrase"
               onChange={(e: TextInputEventType) =>
                 setWalletData({ ...walletData, phrase: e.target.value })
               }
             />
             <TextInput
-              placeholder="password"
+              placeholder="Password"
               onChange={(e: TextInputEventType) =>
                 setWalletData({ ...walletData, password: e.target.value })
               }
             />
             <TextInput
-              placeholder="address"
+              placeholder="Address"
               onChange={(e: TextInputEventType) =>
                 setWalletData({ ...walletData, address: e.target.value })
               }
             />
-            <button onClick={() => void handleAddWallet()}>Add Wallet</button>
+            <button onClick={handleAddWallet}>Add Wallet</button>
           </>
         ) : null}
       </Section>

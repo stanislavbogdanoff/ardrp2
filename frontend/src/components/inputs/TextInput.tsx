@@ -1,12 +1,15 @@
 import { OnChangeFunctionType } from "../../types";
+import { FC } from "react";
 
 type TextInputProps = {
   onChange?: OnChangeFunctionType;
-  placeholder?: string;
-};
+} & React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
 
-const TextInput = ({ onChange, placeholder }: TextInputProps) => {
-  return <input type="text" placeholder={placeholder} onChange={onChange} />;
+const TextInput: FC<TextInputProps> = (props) => {
+  return <input {...props} type="text" onChange={props.onChange} />;
 };
 
 export default TextInput;
