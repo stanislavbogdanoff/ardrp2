@@ -1,19 +1,30 @@
 const mongoose = require("mongoose");
-const TwitterSchema = new mongoose.Schema(
+const twitterSchema = new mongoose.Schema(
   {
-    username: {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    twitter_username: {
       type: String,
       required: true,
     },
-    password: {
+    twitter_password: {
       type: String,
       required: true,
+    },
+    email: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Email",
     },
     status: {
       type: String,
-      required: true,
       default: "Available",
     },
   },
   { timestamps: true, collection: "twitters" }
 );
+
+twitterSchema.index({ twitter_username: 1 });
+
+module.exports = new mongoose.model("Twitter", twitterSchema);

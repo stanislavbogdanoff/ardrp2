@@ -8,6 +8,7 @@ import WalletsTab from "./pages/dashboard/WalletsTab";
 import TwittersTab from "./pages/dashboard/TwittersTab";
 import EmailsTab from "./pages/dashboard/EmailsTab";
 import UsersTab from "./pages/dashboard/UsersTab";
+import DiscordsTab from "./pages/dashboard/DiscordsTab";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path="/dashboard/twitters" element={<TwittersTab />} />
               <Route path="/dashboard/emails" element={<EmailsTab />} />
               <Route path="/dashboard/users" element={<UsersTab />} />
+              <Route path="/dashboard/discords" element={<DiscordsTab />} />
             </Route>
             <Route path="/profile/:userId" element={<ProfilePage />} />
           </Routes>

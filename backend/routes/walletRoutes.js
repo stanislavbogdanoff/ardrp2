@@ -6,11 +6,13 @@ const {
   addNewWallet,
   removeWallet,
   getAvailableWallets,
+  checkWalletExists,
 } = require("../controllers/walletController");
 const { protect } = require("../middleware/authMiddleware");
 
 router.get("/", protect, getAllWallets);
 router.post("/", addNewWallet);
+router.post("/check", protect, checkWalletExists);
 router.get("/available", protect, getAvailableWallets);
 router.get("/random", getRandomWallet);
 router.delete("/:walletId", protect, removeWallet);

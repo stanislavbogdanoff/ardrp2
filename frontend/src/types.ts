@@ -24,3 +24,20 @@ export interface Wallet {
   status?: string;
   address?: string;
 }
+
+export interface Email {
+  _id?: ObjectId;
+  user?: User | string;
+  email?: string;
+  email_password?: string;
+  status?: string;
+}
+
+export interface Twitter {
+  _id?: ObjectId;
+  user?: User | string;
+  twitter_username?: string;
+  twitter_password?: string;
+  email?: Email | string;
+  status?: string;
+}

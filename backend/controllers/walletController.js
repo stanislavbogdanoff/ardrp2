@@ -3,6 +3,19 @@ const Wallet = require("../models/walletModel");
 const User = require("../models/userModel");
 const { isValidObjectId } = require("mongoose");
 
+const checkWalletExists = asyncHandler(async (req, res) => {
+  const { wallet_address } = req.body;
+  try {
+    const foundWallet = await Wallet.findOne({
+      address: wallet_address,
+    }).select("_id");
+    res.status(200).json(!!foundWallet);
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ error: "Could not check wallet" });
+  }
+});
+
 const getAllWallets = asyncHandler(async (req, res) => {
   const wallets = await Wallet.find().populate("user");
   if (wallets && wallets.length > 0) res.status(200).json(wallets);
@@ -64,6 +77,7 @@ const removeWallet = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+  checkWalletExists,
   getAllWallets,
   getRandomWallet,
   addNewWallet,

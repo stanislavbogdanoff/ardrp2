@@ -25,6 +25,10 @@ const DashTabs = () => {
       label: "Emails",
       link: "/emails",
     },
+    {
+      label: "Discords",
+      link: "/discords",
+    },
   ];
 
   return (

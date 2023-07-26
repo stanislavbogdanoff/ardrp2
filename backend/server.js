@@ -18,7 +18,11 @@ connectDB();
 const app = express();
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://127.0.0.1:5173", "http://localhost:5173"],
+    origin: [
+      "http://localhost:3000",
+      "http://127.0.0.1:5173",
+      "http://localhost:5173",
+    ],
     credentials: true,
   })
 );
@@ -29,5 +33,9 @@ app.use(errorHandler);
 
 app.use("/api/wallets", walletRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/projects", require("./routes/projectRoutes"));
+app.use("/api/discords", require("./routes/discordRoutes"));
+app.use("/api/emails", require("./routes/emailRoutes"));
+app.use("/api/twitters", require("./routes/twitterRoutes"));
 
 app.listen(port, () => console.log(`Port ${port} is up and running baby`));
