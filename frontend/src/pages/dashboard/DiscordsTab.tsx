@@ -5,6 +5,7 @@ import Section from "../../components/layout/Section";
 import TextInput from "../../components/inputs/TextInput";
 import { useUser } from "../../hooks/useUser";
 import { useCheckTwitterExistsMutation } from "../../features/twitters/twitterService";
+import { PasteEventType } from "../../types";
 
 const DiscordsTab = () => {
   const [discords, setDiscords] = useState("");
@@ -15,7 +16,7 @@ const DiscordsTab = () => {
 
   const [twitterExists, setTwitterExists] = useState(true);
 
-  const handleTwitterInput = async (e: TextInputEventType) => {
+  const handleTwitterPaste = async (e: PasteEventType) => {
     await checkTwitter({
       twitter: String(e.target.value),
       token: String(user?.token),
@@ -43,7 +44,7 @@ const DiscordsTab = () => {
         <div>
           <TextInput
             placeholder="twitter"
-            onChange={(e) => void handleTwitterInput(e)}
+            onPaste={(e) => void handleTwitterPaste(e)}
           />
           {twitterExists ? <span>Exitst</span> : <span>Doesn't exist</span>}
         </div>
