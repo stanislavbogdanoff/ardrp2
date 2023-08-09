@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
-const emailSchema = new mongoose.Schema(
+const emailSchema = new Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
     },
     email: {
@@ -24,4 +24,4 @@ const emailSchema = new mongoose.Schema(
 
 emailSchema.index({ email: 1 });
 
-module.exports = new mongoose.model("Email", emailSchema);
+export const Email = model("Email", emailSchema);

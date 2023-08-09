@@ -5,17 +5,13 @@ const twitterSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    twitter_username: {
+    username: {
       type: String,
       required: true,
     },
-    twitter_password: {
+    password: {
       type: String,
       required: true,
-    },
-    email: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Email",
     },
     status: {
       type: String,
