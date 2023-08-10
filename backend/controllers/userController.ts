@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { User } from "../models/userModel";
 import { Wallet } from "../models/walletModel";
-import { handleError } from "../utils/handleError";
-const { isValidObjectId } = require("mongoose");
+import { catchError } from "../utils/catchError";
+import { isValidObjectId } from "mongoose";
 
 //@desc   Get all users
 //@route  GET /api/users
@@ -20,7 +20,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
       res.status(400).json({ error: "Users not found" });
     }
   } catch (err) {
-    handleError(err, res, "Could not get all users");
+    catchError(err, res, "Could not get all users");
   }
 };
 

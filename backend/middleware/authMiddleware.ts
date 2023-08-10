@@ -1,7 +1,7 @@
 import { User } from "./../models/userModel";
 import { Response, NextFunction, Request } from "express";
 import jwt from "jsonwebtoken";
-import { IUser, UserReq } from "../types/types";
+import { UserReq } from "../types/types";
 
 const protect = async (req: UserReq, res: Response, next: NextFunction) => {
   let token: string | undefined;
@@ -20,7 +20,7 @@ const protect = async (req: UserReq, res: Response, next: NextFunction) => {
       };
 
       // Get user from the token
-      req.user = (await User.findById(decoded.id)) as IUser;
+      req.user = (await User.findById(decoded.id))!;
 
       next();
     } catch (err) {

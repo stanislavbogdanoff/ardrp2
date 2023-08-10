@@ -1,8 +1,9 @@
-const mongoose = require("mongoose");
-const twitterSchema = new mongoose.Schema(
+import { Schema, model } from "mongoose";
+
+const twitterSchema = new Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
     },
     username: {
@@ -17,10 +18,14 @@ const twitterSchema = new mongoose.Schema(
       type: String,
       default: "Available",
     },
+    email :{
+      type: Schema.Types.ObjectId,
+      ref: "Email"
+    }
   },
   { timestamps: true, collection: "twitters" }
 );
 
 twitterSchema.index({ twitter_username: 1 });
 
-module.exports = new mongoose.model("Twitter", twitterSchema);
+export const Twitter = model("Twitter", twitterSchema);

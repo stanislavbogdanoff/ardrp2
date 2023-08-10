@@ -28,22 +28,24 @@ const walletSchema = new Schema(
         ref: "Wallet",
       },
     ],
-    emails: [
+    email: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Email",
+    },
+
+    discord: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Discord",
+    },
+
+    twitter: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Twitter",
+    },
+    projects: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Email",
-      },
-    ],
-    discords: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Discord",
-      },
-    ],
-    twitters: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Twitter",
+        type: Schema.Types.ObjectId,
+        ref: "Project",
       },
     ],
     status: {

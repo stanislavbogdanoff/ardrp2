@@ -44,10 +44,7 @@ export const loginUser = async (req: Request, res: Response) => {
     user &&
     (await bcrypt.compare(password.toString(), String(user.password)))
   ) {
-    return res.status(200).json({
-      ...user,
-      token: accessToken,
-    });
+    return res.status(200).json(accessToken);
   } else {
     return res.status(400).json({ error: "User not found" });
   }
