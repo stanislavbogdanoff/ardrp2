@@ -9,8 +9,9 @@ const emailSchema = new Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
-    email_password: {
+    password: {
       type: String,
       required: true,
     },
@@ -21,7 +22,5 @@ const emailSchema = new Schema(
   },
   { timestamps: true, collection: "emails" }
 );
-
-emailSchema.index({ email: 1 });
 
 export const Email = model("Email", emailSchema);

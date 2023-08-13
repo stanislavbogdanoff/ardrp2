@@ -33,6 +33,7 @@ app.use(errorHandler);
 
 app.use("/api/wallets", walletRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/profiles", require("./routes/profileRoutes"));
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/projects", require("./routes/projectRoutes"));
 app.use("/api/discords", require("./routes/discordRoutes"));

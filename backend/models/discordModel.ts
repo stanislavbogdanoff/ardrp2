@@ -5,7 +5,6 @@ const discordSchema = new Schema(
     username: {
       type: String,
       requried: true,
-      unique: true,
     },
     password: {
       type: String,
@@ -14,6 +13,7 @@ const discordSchema = new Schema(
     email: {
       type: Schema.Types.ObjectId,
       ref: "Email",
+      unique: true,
     },
     twitter: {
       type: Schema.Types.ObjectId,
@@ -25,10 +25,20 @@ const discordSchema = new Schema(
     },
     projects: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "Project",
+        project: {
+          type: Schema.Types.ObjectId,
+          ref: "Project",
+        },
+        transactions: {
+          type: Number,
+          default: 0,
+        },
       },
     ],
+    status: {
+      type: String,
+      default: "Available",
+    },
   },
   {
     timestamps: true,
